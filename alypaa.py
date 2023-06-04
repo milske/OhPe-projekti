@@ -16,7 +16,18 @@ def uusi_peli():
     tulos = 0
     kysymys_numero = 0
 
-    with open("maantieto.csv") as tiedosto:
+    while True:
+        aihe = int(input("Valitse aihealue: 1=maantiede, 2=historia: "))
+        if aihe == 1:
+            tiedostonimi = "maantieto.csv"
+            break
+        elif aihe == 2:
+            tiedostonimi = "historia.csv"
+            break
+        else:
+            print("Valinta ei mahdollinen")
+
+    with open(tiedostonimi) as tiedosto:
 
         for rivi in tiedosto:
             rivi = rivi.replace("\n", "")
@@ -41,6 +52,7 @@ def uusi_peli():
     def nayta_tulos(tulos):
         print("----------------")
         print(f"{nimi}, tuloksesi on {tulos} / 5 pistettä." )
+        print(f"Sait kysymyksistä {(tulos/5)*100}% oikein")
         if tulos <= 2: 
             print("Vielä on parannettavaa!")
         if tulos == 3 or tulos == 4:
@@ -50,25 +62,6 @@ def uusi_peli():
         print("----------------")
     nayta_tulos(tulos)
 
-
-'''
-def nayta_tulos(tulos, arvaukset):
-     print("Tulokset:")
-     print("Vastaukset: ", end="")
-     for i vaihtoehdot:
-           print(vaihtoehdot.get(i), end=" ")
-     print()
-     
-     print("Oikeat vastaukset: ", end="")
-     for i kysymys:
-           print(kysymys.get(i), end=" ")
-     print()
-     
-     tulokset = int((tulos / len(kysymys))*100
-                    print(str(tulokset))
-
-nayta_tulos(tulos, arvaukset)
-'''
 
 def pelaa_uudelleen():
         valinta = input("Haluatko pelata uudelleen? (kyllä/ei): ")
