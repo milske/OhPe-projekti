@@ -1,21 +1,15 @@
-# Stepit:
-# 1. Create a basic application that can ask multiple-choice questions.
-# 2. Separate question data from source code by storing questions in a dedicated data file.
-# 3. Refactor the code to use functions.
-# 4. Add interest by supporting different quiz topics to choose from.
-# 5. Expand the app to give hints, and provide explanations.
-# 6. Make the app more user-friendly by improving how it looks and how it handles user errors.
-
-# Quiz
+# Quiz aloitus
 
 nimi = input("Anna nimesi: ")
 
-    
+# pääohjelmaa edustava funktio
+
+
 def uusi_peli():
     arvaukset = []
     tulos = 0
     kysymys_numero = 0
-
+    # while silmukka aihealueen ja oikean tiedoston valitsemiseksi
     while True:
         aihe = int(input("Valitse aihealue: 1=maantiede, 2=historia: "))
         if aihe == 1:
@@ -27,8 +21,10 @@ def uusi_peli():
         else:
             print("Valinta ei mahdollinen")
 
+    # kysymysten noutaminen tiedostosta
     with open(tiedostonimi) as tiedosto:
 
+        # for-silmukalla käydään läpi aihepiirin kysymykset ja vastausvaihtoehdot
         for rivi in tiedosto:
             rivi = rivi.replace("\n", "")
             osat = rivi.split(";")
@@ -41,19 +37,21 @@ def uusi_peli():
             arvaus = input("Anna oikea vaihtoehto: ").upper()
             arvaukset.append(arvaus)
 
+            # if-else ehtolause vastauksen oikein/väärin päättelemiseksi
+            # oikea vastaus listan 5. indeksissä
             if arvaus == osat[5]:
                 tulos += 1
                 print("Oikein!")
             else:
                 print("Väärin...")
-                # print(f"Oikea vastaus on {vastaukset[kysymys_numero]}")
             kysymys_numero += 1
 
+    # funktio tuloksen laskemiseksi
     def nayta_tulos(tulos):
         print("----------------")
-        print(f"{nimi}, tuloksesi on {tulos} / 5 pistettä." )
+        print(f"{nimi}, tuloksesi on {tulos} / 5 pistettä.")
         print(f"Sait kysymyksistä {(tulos/5)*100}% oikein")
-        if tulos <= 2: 
+        if tulos <= 2:
             print("Vielä on parannettavaa!")
         if tulos == 3 or tulos == 4:
             print("Hyvin meni!")
@@ -63,20 +61,26 @@ def uusi_peli():
     nayta_tulos(tulos)
 
 
+# funktio joka mahdollistaa aloittaa uusi peli tai lopettaa pelaaminen
 def pelaa_uudelleen():
-        valinta = input("Haluatko pelata uudelleen? (kyllä/ei): ")
-        valinta = valinta.upper()
+    valinta = input("Haluatko pelata uudelleen? (kyllä/ei): ")
+    valinta = valinta.upper()
 
-        if valinta == "KYLLÄ":
-            return True
-        else:
-            return False
+    if valinta == "KYLLÄ":
+        return True
+    else:
+        return False
 
 
+# uusi_peli funktion kutsuminen
 uusi_peli()
 
 while pelaa_uudelleen():
-            uusi_peli()
+    uusi_peli()
 
 print("Kiitos, moi!")
 
+# Pelin kehittäminen
+# -Laajenna kysymyspankkia ja kysymysten valintaa random.shuffle metodilla
+# -Laajenna sovellusta antamaan vihjeitä ja tarjoamaan selvennystä
+# -paranna käyttäjän syötteissä tapahtuvien virheiden käisttelyä ja tulostusten visuaalisuutta
